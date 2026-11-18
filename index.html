@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080914" />
+  <meta name="description" content="Alexis Klifford Camilo — Frontend Developer, Full Stack Developer, and AI Prompt Engineer. Portfolio in progress." />
+  <title>Alexis Klifford Camilo // Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080914;
+      --panel: #111426;
+      --line: #272d45;
+      --text: #f2f4ff;
+      --muted: #a4abc3;
+      --cyan: #62f4e3;
+      --pink: #ff6bb5;
+      --mono: "DM Mono", monospace;
+      --sans: "Space Grotesk", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: radial-gradient(ellipse at 50% 0%, #171a35 0%, var(--bg) 55%);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      opacity: .14;
+      background-image: linear-gradient(rgba(98,244,227,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(98,244,227,.12) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    a { color: inherit; }
+    a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+    .wrap { width: min(1050px, calc(100% - 40px)); margin-inline: auto; }
+    header { border-bottom: 1px solid rgba(164,171,195,.15); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { color: var(--cyan); font: 500 14px var(--mono); letter-spacing: .08em; text-decoration: none; }
+    nav { display: flex; gap: 24px; }
+    nav a { color: var(--muted); font: 13px var(--mono); text-decoration: none; }
+    nav a:hover { color: var(--cyan); }
+    main { overflow: hidden; }
+    .hero { min-height: 620px; display: grid; align-content: center; padding-block: 90px; }
+    .eyebrow { color: var(--cyan); font: 12px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 850px; margin: 20px 0 16px; font-size: clamp(42px, 8vw, 82px); line-height: 1.04; letter-spacing: -.055em; }
+    h1 span { color: var(--cyan); }
+    .role { margin: 0; color: var(--muted); font-size: clamp(18px, 3vw, 25px); }
+    .role strong { color: var(--text); font-weight: 500; }
+    .intro { max-width: 620px; margin: 24px 0 30px; color: var(--muted); font-size: 17px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border: 1px solid var(--cyan); border-radius: 6px; background: var(--cyan); color: #07110f; font: 500 12px var(--mono); letter-spacing: .03em; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(98,244,227,.2); }
+    .button.secondary { background: transparent; color: var(--text); border-color: var(--line); }
+    section { padding-block: 76px; border-top: 1px solid rgba(164,171,195,.15); }
+    .section-label { margin: 0 0 10px; color: var(--pink); font: 12px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 0 0 28px; font-size: clamp(28px, 5vw, 42px); line-height: 1.15; letter-spacing: -.035em; }
+    .about-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; }
+    .card { padding: 26px; border: 1px solid var(--line); border-radius: 10px; background: rgba(17,20,38,.78); }
+    .card p { margin: 0; color: var(--muted); }
+    .card p + p { margin-top: 14px; }
+    .focus-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .chip { padding: 7px 10px; border: 1px solid #354057; border-radius: 5px; color: var(--cyan); font: 11px var(--mono); }
+    .project-card { position: relative; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+    .project-card::after { position: absolute; right: -36px; bottom: -82px; width: 190px; height: 190px; border: 1px solid rgba(98,244,227,.2); border-radius: 50%; box-shadow: 0 0 0 22px rgba(98,244,227,.025), 0 0 0 44px rgba(98,244,227,.025); content: ""; }
+    .project-status { color: var(--cyan); font: 11px var(--mono); letter-spacing: .1em; }
+    .project-card h3 { margin: 18px 0 8px; font-size: 22px; }
+    .project-card p { max-width: 570px; }
+    .contact-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+    .contact-card p { max-width: 580px; }
+    footer { padding-block: 28px; border-top: 1px solid rgba(164,171,195,.15); color: var(--muted); font: 11px var(--mono); }
+    @media (max-width: 650px) {
+      .wrap { width: min(100% - 30px, 1050px); }
+      .nav { min-height: 64px; }
+      nav { gap: 12px; }
+      nav a { font-size: 11px; }
+      .hero { min-height: 570px; padding-block: 70px; }
+      .about-grid { grid-template-columns: 1fr; }
+      section { padding-block: 58px; }
+      .card { padding: 21px; }
+    }
+    @media (max-width: 420px) {
+      nav { gap: 9px; }
+      nav a { font-size: 10px; }
+      .brand { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home">AKC<span aria-hidden="true">_</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#about">ABOUT</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <section class="hero" id="home" style="border-top:0">
+        <div class="eyebrow">Portfolio // currently in progress</div>
+        <h1>Hi, I’m <span>Alexis</span><br />Klifford Camilo.</h1>
+        <p class="role"><strong>Frontend Developer</strong> · Full Stack Developer · AI Prompt Engineer</p>
+        <p class="intro">Welcome to my corner of the internet. I’m building this portfolio as I grow—projects and more details are coming soon.</p>
+        <div class="actions">
+          <a class="button" href="mailto:alexiscamilo019@gmail.com">CONTACT ME <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="#projects">SEE WHAT’S NEXT</a>
+        </div>
+      </section>
+
+      <section id="about">
+        <p class="section-label">01 // About</p>
+        <h2>Still writing my story.</h2>
+        <div class="about-grid">
+          <div class="card">
+            <p>I’m at the beginning of my portfolio journey, so I’m keeping this space honest while I learn, design, and build.</p>
+            <p>I’m interested in frontend development, full-stack development, and AI prompt engineering. I’ll share more about my work when I’m ready.</p>
+          </div>
+          <div class="card">
+            <p class="project-status">CURRENT STATUS</p>
+            <h3 style="margin:10px 0 8px">Building & learning</h3>
+            <p>More about me, my skills, and my experience will be added over time.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <p class="section-label">02 // Projects</p>
+        <h2>More levels loading.</h2>
+        <article class="card project-card">
+          <div>
+            <span class="project-status">STATUS // COMING SOON</span>
+            <h3>My first projects will appear here.</h3>
+            <p>I’m working toward projects I’m proud to share. Check back later for updates.</p>
+          </div>
+          <div class="focus-list" aria-label="Areas of interest">
+            <span class="chip">FRONTEND</span>
+            <span class="chip">FULL STACK</span>
+            <span class="chip">AI PROMPT ENGINEERING</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="contact">
+        <p class="section-label">03 // Contact</p>
+        <div class="card contact-card">
+          <div>
+            <h2 style="margin-bottom:10px">Want to say hello?</h2>
+            <p>If you’d like to get in touch, send me an email.</p>
+          </div>
+          <a class="button" href="mailto:alexiscamilo019@gmail.com">alexiscamilo019@gmail.com ↗</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">© <span id="year">2026</span> Alexis Klifford Camilo · Thanks for stopping by.</div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
