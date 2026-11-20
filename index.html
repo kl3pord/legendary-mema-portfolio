@@ -1,180 +1,2080 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#080914" />
-  <meta name="description" content="Alexis Klifford Camilo — Frontend Developer, Full Stack Developer, and AI Prompt Engineer. Portfolio in progress." />
-  <title>Alexis Klifford Camilo // Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLAYER 1 // RETRO-ARCADE PORTFOLIO</title>
+
+  <!-- Google Fonts: Retro Pixel Display + Clean Sans-Serif Body -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React 18, ReactDOM & Babel Standalone (Zero Build Setup) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pixel: ['"Press Start 2P"', 'monospace'],
+            vt: ['"VT323"', 'monospace'],
+            sans: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            void: '#070714',
+            cabinet: '#0d0f22',
+            cyanNeon: '#00f5ff',
+            magentaNeon: '#ff007f',
+            yellowNeon: '#ffe600',
+            greenNeon: '#39ff14',
+            goldNeon: '#ffd700',
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #080914;
-      --panel: #111426;
-      --line: #272d45;
-      --text: #f2f4ff;
-      --muted: #a4abc3;
-      --cyan: #62f4e3;
-      --pink: #ff6bb5;
-      --mono: "DM Mono", monospace;
-      --sans: "Space Grotesk", sans-serif;
+      --bg-void: #070714;
+      --bg-cabinet: #0d0f22;
+      --primary: #00f5ff;
+      --secondary: #ff007f;
+      --yellow: #ffe600;
+      --green: #39ff14;
+      --primary-rgb: 0, 245, 255;
+      --secondary-rgb: 255, 0, 127;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
+    body.god-mode {
+      --primary: #ffd700;
+      --secondary: #ffaa00;
+      --primary-rgb: 255, 215, 0;
+      --secondary-rgb: 255, 170, 0;
+    }
+
     body {
-      margin: 0;
-      min-width: 320px;
-      background: radial-gradient(ellipse at 50% 0%, #171a35 0%, var(--bg) 55%);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.6;
+      background-color: var(--bg-void);
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
     }
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      content: "";
-      opacity: .14;
-      background-image: linear-gradient(rgba(98,244,227,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(98,244,227,.12) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, black, transparent 78%);
+
+    @media (pointer: fine) {
+      body.custom-cursor-active,
+      body.custom-cursor-active * {
+        cursor: none !important;
+      }
     }
-    a { color: inherit; }
-    a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
-    .wrap { width: min(1050px, calc(100% - 40px)); margin-inline: auto; }
-    header { border-bottom: 1px solid rgba(164,171,195,.15); }
-    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { color: var(--cyan); font: 500 14px var(--mono); letter-spacing: .08em; text-decoration: none; }
-    nav { display: flex; gap: 24px; }
-    nav a { color: var(--muted); font: 13px var(--mono); text-decoration: none; }
-    nav a:hover { color: var(--cyan); }
-    main { overflow: hidden; }
-    .hero { min-height: 620px; display: grid; align-content: center; padding-block: 90px; }
-    .eyebrow { color: var(--cyan); font: 12px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
-    h1 { max-width: 850px; margin: 20px 0 16px; font-size: clamp(42px, 8vw, 82px); line-height: 1.04; letter-spacing: -.055em; }
-    h1 span { color: var(--cyan); }
-    .role { margin: 0; color: var(--muted); font-size: clamp(18px, 3vw, 25px); }
-    .role strong { color: var(--text); font-weight: 500; }
-    .intro { max-width: 620px; margin: 24px 0 30px; color: var(--muted); font-size: 17px; }
-    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 18px; border: 1px solid var(--cyan); border-radius: 6px; background: var(--cyan); color: #07110f; font: 500 12px var(--mono); letter-spacing: .03em; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
-    .button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(98,244,227,.2); }
-    .button.secondary { background: transparent; color: var(--text); border-color: var(--line); }
-    section { padding-block: 76px; border-top: 1px solid rgba(164,171,195,.15); }
-    .section-label { margin: 0 0 10px; color: var(--pink); font: 12px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
-    h2 { margin: 0 0 28px; font-size: clamp(28px, 5vw, 42px); line-height: 1.15; letter-spacing: -.035em; }
-    .about-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; }
-    .card { padding: 26px; border: 1px solid var(--line); border-radius: 10px; background: rgba(17,20,38,.78); }
-    .card p { margin: 0; color: var(--muted); }
-    .card p + p { margin-top: 14px; }
-    .focus-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
-    .chip { padding: 7px 10px; border: 1px solid #354057; border-radius: 5px; color: var(--cyan); font: 11px var(--mono); }
-    .project-card { position: relative; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-    .project-card::after { position: absolute; right: -36px; bottom: -82px; width: 190px; height: 190px; border: 1px solid rgba(98,244,227,.2); border-radius: 50%; box-shadow: 0 0 0 22px rgba(98,244,227,.025), 0 0 0 44px rgba(98,244,227,.025); content: ""; }
-    .project-status { color: var(--cyan); font: 11px var(--mono); letter-spacing: .1em; }
-    .project-card h3 { margin: 18px 0 8px; font-size: 22px; }
-    .project-card p { max-width: 570px; }
-    .contact-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
-    .contact-card p { max-width: 580px; }
-    footer { padding-block: 28px; border-top: 1px solid rgba(164,171,195,.15); color: var(--muted); font: 11px var(--mono); }
-    @media (max-width: 650px) {
-      .wrap { width: min(100% - 30px, 1050px); }
-      .nav { min-height: 64px; }
-      nav { gap: 12px; }
-      nav a { font-size: 11px; }
-      .hero { min-height: 570px; padding-block: 70px; }
-      .about-grid { grid-template-columns: 1fr; }
-      section { padding-block: 58px; }
-      .card { padding: 21px; }
+
+    /* CRT Scanline Overlay */
+    .crt-scanlines {
+      background: linear-gradient(
+          rgba(18, 16, 16, 0) 50%,
+          rgba(0, 0, 0, 0.34) 50%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 0, 0, 0.03),
+          rgba(0, 255, 0, 0.01),
+          rgba(0, 0, 255, 0.03)
+        );
+      background-size: 100% 3px, 6px 100%;
     }
-    @media (max-width: 420px) {
-      nav { gap: 9px; }
-      nav a { font-size: 10px; }
-      .brand { font-size: 11px; }
+
+    /* Neon Borders & Text */
+    .neon-border-primary {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.38),
+        inset 0 0 12px rgba(var(--primary-rgb), 0.14);
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+
+    .neon-border-secondary {
+      border-color: var(--secondary);
+      box-shadow: 0 0 15px rgba(var(--secondary-rgb), 0.38),
+        inset 0 0 12px rgba(var(--secondary-rgb), 0.14);
+    }
+
+    .neon-text-primary {
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.65);
+    }
+
+    .neon-text-secondary {
+      color: var(--secondary);
+      text-shadow: 0 0 10px rgba(var(--secondary-rgb), 0.65);
+    }
+
+    /* 3D Arcade Cabinet Pushbuttons */
+    .arcade-btn-primary {
+      background-color: var(--primary);
+      color: #070714;
+      box-shadow: 0 4px 0 rgba(var(--primary-rgb), 0.45),
+        0 0 18px rgba(var(--primary-rgb), 0.45);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+    }
+
+    .arcade-btn-primary:hover {
+      filter: brightness(1.1);
+    }
+
+    .arcade-btn-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 rgba(var(--primary-rgb), 0.45),
+        0 0 10px rgba(var(--primary-rgb), 0.35);
+    }
+
+    .arcade-btn-secondary {
+      background-color: var(--secondary);
+      color: #ffffff;
+      box-shadow: 0 4px 0 rgba(var(--secondary-rgb), 0.45),
+        0 0 18px rgba(var(--secondary-rgb), 0.45);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+    }
+
+    .arcade-btn-secondary:hover {
+      filter: brightness(1.1);
+    }
+
+    .arcade-btn-secondary:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 rgba(var(--secondary-rgb), 0.45),
+        0 0 10px rgba(var(--secondary-rgb), 0.35);
+    }
+
+    .hazard-stripes {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 230, 0, 0.11),
+        rgba(255, 230, 0, 0.11) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+
+    @keyframes neonFlicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.42; }
+    }
+
+    .hover-flicker:hover {
+      animation: neonFlicker 0.6s linear;
+    }
+
+    @keyframes shockwaveRing {
+      0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.8);
+        opacity: 0;
+      }
+    }
+
+    .click-shockwave {
+      animation: shockwaveRing 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes scoreFlash {
+      0% { background-color: rgba(57, 255, 20, 0.45); }
+      100% { background-color: rgba(57, 255, 20, 0.08); }
+    }
+
+    .new-score-row {
+      animation: scoreFlash 1.4s ease-out forwards;
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#home">AKC<span aria-hidden="true">_</span></a>
-      <nav aria-label="Main navigation">
-        <a href="#about">ABOUT</a>
-        <a href="#projects">PROJECTS</a>
-        <a href="#contact">CONTACT</a>
-      </nav>
-    </div>
-  </header>
-  <main>
-    <div class="wrap">
-      <section class="hero" id="home" style="border-top:0">
-        <div class="eyebrow">Portfolio // currently in progress</div>
-        <h1>Hi, I’m <span>Alexis</span><br />Klifford Camilo.</h1>
-        <p class="role"><strong>Frontend Developer</strong> · Full Stack Developer · AI Prompt Engineer</p>
-        <p class="intro">Welcome to my corner of the internet. I’m building this portfolio as I grow—projects and more details are coming soon.</p>
-        <div class="actions">
-          <a class="button" href="mailto:alexiscamilo019@gmail.com">CONTACT ME <span aria-hidden="true">↗</span></a>
-          <a class="button secondary" href="#projects">SEE WHAT’S NEXT</a>
-        </div>
-      </section>
+<body class="custom-cursor-active selection:bg-cyanNeon selection:text-void">
+  <div id="root"></div>
 
-      <section id="about">
-        <p class="section-label">01 // About</p>
-        <h2>Still writing my story.</h2>
-        <div class="about-grid">
-          <div class="card">
-            <p>I’m at the beginning of my portfolio journey, so I’m keeping this space honest while I learn, design, and build.</p>
-            <p>I’m interested in frontend development, full-stack development, and AI prompt engineering. I’ll share more about my work when I’m ready.</p>
-          </div>
-          <div class="card">
-            <p class="project-status">CURRENT STATUS</p>
-            <h3 style="margin:10px 0 8px">Building & learning</h3>
-            <p>More about me, my skills, and my experience will be added over time.</p>
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+
+    /* =======================================================================
+       1. CUSTOMIZABLE PORTFOLIO CONFIG (EDIT YOUR PERSONAL DATA HERE)
+       ======================================================================= */
+    const PORTFOLIO_CONFIG = {
+      playerName: '[YOUR_NAME]',
+      playerTitle: 'Full-Stack Developer & Creative Technologist',
+      location: 'SECTOR 07 // REMOTE READY',
+      vipEmail: 'vip@yourdomain.com',
+      publicEmail: 'hello@yourdomain.com',
+      bioParagraphs: [
+        'I engineer high-FPS web applications, interactive digital worlds, and fault-tolerant cloud backends—treating every interface like a flagship 16-bit arcade cabinet with zero input lag.',
+        'From real-time WebAudio synthesizers and HTML5 Canvas engines to distributed TypeScript & Go microservices, I bridge creative direction with production systems engineering.',
+      ],
+      powerMeters: [
+        { label: 'FRONTEND VELOCITY', value: 98, color: '#00f5ff' },
+        { label: 'SYSTEMS & API ARMOR', value: 94, color: '#ff007f' },
+        { label: 'CREATIVE SHADERS & UX', value: 96, color: '#ffe600' },
+      ],
+      skills: [
+        {
+          id: 'react',
+          name: 'React / Next.js',
+          category: 'FRONTEND',
+          level: 97,
+          rarity: 'LEGENDARY',
+          weaponClass: 'UI Plasma Cannon',
+          damage: '9,800 DPS',
+          tacticalNote: 'Server Components, concurrent rendering, custom hooks, and locked 60 FPS state architecture.',
+        },
+        {
+          id: 'ts',
+          name: 'TypeScript',
+          category: 'FRONTEND',
+          level: 95,
+          rarity: 'EPIC',
+          weaponClass: 'Type-Safe Katana',
+          damage: '9,450 DPS',
+          tacticalNote: 'End-to-end strict type inference, generic AST utilities, and zero-runtime-regression contracts.',
+        },
+        {
+          id: 'canvas',
+          name: 'HTML5 Canvas & WebGL',
+          category: 'FRONTEND',
+          level: 93,
+          rarity: 'LEGENDARY',
+          weaponClass: 'Shader Railgun',
+          damage: '9,200 DPS',
+          tacticalNote: 'Custom 2D physics loops, particle systems, procedural synthwave grids, and hardware-accelerated graphics.',
+        },
+        {
+          id: 'node',
+          name: 'Node.js & Go APIs',
+          category: 'BACKEND',
+          level: 94,
+          rarity: 'EPIC',
+          weaponClass: 'Concurrency Reactor',
+          damage: '9,400 DPS',
+          tacticalNote: 'Low-latency REST/GraphQL gateways, WebSocket event brokers, and resilient worker queues.',
+        },
+        {
+          id: 'db',
+          name: 'PostgreSQL & Redis',
+          category: 'BACKEND',
+          level: 91,
+          rarity: 'RARE',
+          weaponClass: 'Data Vault Shield',
+          damage: '8,950 DEF',
+          tacticalNote: 'Query plan tuning, composite indexing, sub-millisecond caching, and ACID transaction integrity.',
+        },
+        {
+          id: 'cloud',
+          name: 'Docker & Edge Cloud',
+          category: 'TOOLS',
+          level: 90,
+          rarity: 'EPIC',
+          weaponClass: 'Orbital Drop Pod',
+          damage: '9,100 SPD',
+          tacticalNote: 'Zero-downtime CI/CD pipelines, multi-stage container builds, and global edge CDN deployments.',
+        },
+      ],
+      projects: [
+        {
+          id: 'stage-1',
+          stage: 'STAGE 01',
+          title: 'NEON PULSE SYNTH',
+          subtitle: 'Browser Polyphonic Synthesizer & MIDI Sequencer',
+          description:
+            'Zero-dependency Web Audio API workstation featuring dual oscillators, resonant filters, 16-step sequencer, and a 60 FPS FFT oscilloscope.',
+          tags: ['Web Audio API', 'Canvas 2D', 'TypeScript'],
+          demoUrl: 'https://example.com',
+          repoUrl: 'https://github.com',
+          locked: false,
+          accent: 'cyan',
+          specs: ['Latency: < 6ms', 'Polyphony: 16 Voices', 'FPS: 60 Locked'],
+        },
+        {
+          id: 'stage-2',
+          stage: 'STAGE 02',
+          title: 'HYPERGRID CLOUD OPS',
+          subtitle: 'Real-Time Kubernetes Telemetry Command Center',
+          description:
+            'High-throughput observability deck streaming 50,000+ cluster events per second via WebSockets with instant anomaly alerts.',
+          tags: ['Next.js', 'Go', 'WebSockets'],
+          demoUrl: 'https://example.com',
+          repoUrl: 'https://github.com',
+          locked: false,
+          accent: 'magenta',
+          specs: ['Throughput: 50k msg/s', 'Uptime: 99.98%', 'Stack: Next + Go'],
+        },
+        {
+          id: 'stage-3',
+          stage: 'STAGE 03',
+          title: 'PIXELFORGE ENGINE',
+          subtitle: '2D Sprite Physics & Tilemap Level Editor',
+          description:
+            'Browser-based game level designer with AABB collision debugging, parallax layer previewing, and one-click JSON/HTML5 export.',
+          tags: ['JavaScript', 'ECS Engine', 'Tailwind CSS'],
+          demoUrl: 'https://example.com',
+          repoUrl: 'https://github.com',
+          locked: false,
+          accent: 'cyan',
+          specs: ['Bundle: 14KB Gzip', 'Collision: QuadTree', 'Export: Standalone'],
+        },
+        {
+          id: 'stage-4',
+          stage: 'STAGE 04 // BOSS',
+          title: 'CHRONO AI COPILOT',
+          subtitle: 'Autonomous AST Refactoring & Sandbox Runner',
+          description:
+            'AI-assisted codebase migration engine that generates multi-file diffs and verifies unit tests inside an isolated WebAssembly sandbox.',
+          tags: ['LLM Agents', 'Rust', 'WebAssembly'],
+          locked: true,
+          progress: 78,
+          eta: 'Q2 2026',
+          blueprintNotes: [
+            'Tree-sitter AST parser compiled to WASM for instant client-side symbol indexing.',
+            'Deterministic sandbox test runner verifying patches before PR creation.',
+            'Streaming diff visualizer with one-click hunk rollback.',
+          ],
+        },
+        {
+          id: 'stage-5',
+          stage: 'STAGE 05 // SECRET',
+          title: 'CYBERDECK SPATIAL OS',
+          subtitle: 'Tiling Terminal & Shader Workspace',
+          description:
+            'Keyboard-driven spatial desktop environment built for hardware hackers and creative coders.',
+          tags: ['WebGL', 'Electron', 'Node.js'],
+          locked: true,
+          progress: 45,
+          eta: 'Q3 2026',
+          blueprintNotes: [
+            'Custom GLSL post-processing shaders per floating terminal pane.',
+            'Hardware serial port bridge for live microcontroller debugging.',
+          ],
+        },
+      ],
+      quests: [
+        {
+          level: 'WORLD 4 - CLEARED',
+          period: '2024 — PRESENT',
+          role: 'Senior Frontend & Creative Engineer',
+          company: 'NEXUS INTERACTIVE LABS',
+          summary:
+            'Architected real-time collaborative canvas tools, slashing initial bundle payload by 42% while maintaining locked 60 FPS interaction.',
+        },
+        {
+          level: 'WORLD 3 - CLEARED',
+          period: '2022 — 2024',
+          role: 'Full-Stack Software Engineer',
+          company: 'SYNTHWAVE CLOUD SYSTEMS',
+          summary:
+            'Engineered Node.js/PostgreSQL microservices and real-time developer analytics portals serving 120,000+ monthly active users.',
+        },
+        {
+          level: 'WORLD 2 - CLEARED',
+          period: '2020 — 2022',
+          role: 'Frontend Web Developer',
+          company: 'PIXELCRAFT DIGITAL STUDIO',
+          summary:
+            'Built interactive product launches, custom Canvas/SVG micro-interactions, and accessible design systems.',
+        },
+      ],
+      socials: [
+        { label: 'GITHUB', url: 'https://github.com', icon: 'github' },
+        { label: 'LINKEDIN', url: 'https://linkedin.com', icon: 'linkedin' },
+        { label: 'X / DEV', url: 'https://x.com', icon: 'twitter' },
+        { label: 'EMAIL', url: 'mailto:hello@yourdomain.com', icon: 'mail' },
+      ],
+      initialLeaderboard: [
+        { id: 1, tag: 'REC', callsign: 'LEAD TECH RECRUITER', score: 99900, isNew: false },
+        { id: 2, tag: 'CTO', callsign: 'ARCADE VENTURES', score: 88450, isNew: false },
+        { id: 3, tag: 'DEV', callsign: 'PLAYER 2 // CO-OP', score: 76200, isNew: false },
+      ],
+    };
+
+    /* =======================================================================
+       2. NATIVE WEB AUDIO API 8-BIT SYNTHESIZER (ZERO EXTERNAL MP3s)
+       ======================================================================= */
+    class ArcadeSynth {
+      constructor() {
+        this.ctx = null;
+        this.muted = true; // Default MUTED
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playBlip(force = false) {
+        if (this.muted && !force) return;
+        this.init();
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.075);
+
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.085);
+      }
+
+      playCoin(force = false) {
+        if (this.muted && !force) return;
+        this.init();
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now); // B5
+        osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
+
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.36);
+      }
+
+      playLaser(force = false) {
+        if (this.muted && !force) return;
+        this.init();
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.14);
+
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.145);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      }
+
+      playFanfare(force = false) {
+        if (this.muted && !force) return;
+        this.init();
+        if (!this.ctx) return;
+
+        const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+        const step = 0.09;
+        const now = this.ctx.currentTime;
+
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const start = now + idx * step;
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, start);
+
+          gain.gain.setValueAtTime(0.1, start);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + step * 1.4);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(start);
+          osc.stop(start + step * 1.45);
+        });
+      }
+    }
+
+    const synth = new ArcadeSynth();
+
+    /* =======================================================================
+       3. LUCIDE ICON WRAPPER COMPONENT
+       ======================================================================= */
+    function Icon({ name, className = 'w-4 h-4' }) {
+      const ref = useRef(null);
+      useEffect(() => {
+        if (window.lucide && ref.current) {
+          ref.current.innerHTML = `<i data-lucide="${name}" class="${className}"></i>`;
+          window.lucide.createIcons({ nodes: [ref.current] });
+        }
+      }, [name, className]);
+      return <span ref={ref} className="inline-flex items-center justify-center" />;
+    }
+
+    /* =======================================================================
+       4. CHARACTER-SCRAMBLE / DECODE TEXT COMPONENT
+       ======================================================================= */
+    function ScrambleText({ text, className = '' }) {
+      const [display, setDisplay] = useState(text);
+      const timerRef = useRef(null);
+
+      const triggerScramble = () => {
+        const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+        let iteration = 0;
+        clearInterval(timerRef.current);
+
+        timerRef.current = setInterval(() => {
+          setDisplay(
+            text
+              .split('')
+              .map((char, idx) => {
+                if (char === ' ' || char === ':' || char === '/') return char;
+                if (idx < iteration) return text[idx];
+                return glyphs[Math.floor(Math.random() * glyphs.length)];
+              })
+              .join('')
+          );
+          if (iteration >= text.length) clearInterval(timerRef.current);
+          iteration += 0.5;
+        }, 22);
+      };
+
+      useEffect(() => () => clearInterval(timerRef.current), []);
+
+      return (
+        <span onMouseEnter={triggerScramble} className={className}>
+          {display}
+        </span>
+      );
+    }
+
+    /* =======================================================================
+       5. 3D SYNTHWAVE PERSPECTIVE GRID CANVAS (60 FPS + REDUCED MOTION)
+       ======================================================================= */
+    function SynthwaveBackground({ godMode }) {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let animId;
+        let offset = 0;
+
+        const resize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const render = () => {
+          const w = canvas.width;
+          const h = canvas.height;
+          const gridColor = godMode ? 'rgba(255, 215, 0, 0.28)' : 'rgba(0, 245, 255, 0.24)';
+          const horizonGlow = godMode ? 'rgba(255, 170, 0, 0.24)' : 'rgba(255, 0, 127, 0.24)';
+
+          ctx.fillStyle = '#070714';
+          ctx.fillRect(0, 0, w, h);
+
+          const horizonY = h * 0.42;
+
+          const grad = ctx.createLinearGradient(0, horizonY - 90, 0, horizonY + 120);
+          grad.addColorStop(0, 'transparent');
+          grad.addColorStop(0.5, horizonGlow);
+          grad.addColorStop(1, 'transparent');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, horizonY - 90, w, 210);
+
+          ctx.strokeStyle = godMode ? '#ffd700' : '#ff007f';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, horizonY);
+          ctx.lineTo(w, horizonY);
+          ctx.stroke();
+
+          ctx.strokeStyle = gridColor;
+          ctx.lineWidth = 1;
+          const centerX = w / 2;
+          for (let i = -24; i <= 24; i++) {
+            ctx.beginPath();
+            ctx.moveTo(centerX + i * (w / 26), horizonY);
+            ctx.lineTo(centerX + i * (w / 6.5), h);
+            ctx.stroke();
+          }
+
+          const speed = reducedMotion.matches ? 0.15 : 1.35;
+          offset = (offset + speed) % 60;
+
+          for (let z = 1; z <= 18; z++) {
+            const progress = (z * 60 + offset) / (18 * 60);
+            const y = horizonY + Math.pow(progress, 2.2) * (h - horizonY);
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+          }
+
+          animId = requestAnimationFrame(render);
+        };
+
+        animId = requestAnimationFrame(render);
+        return () => {
+          cancelAnimationFrame(animId);
+          window.removeEventListener('resize', resize);
+        };
+      }, [godMode]);
+
+      return (
+        <canvas
+          ref={canvasRef}
+          className="fixed inset-0 w-full h-full pointer-events-none z-0"
+          aria-hidden="true"
+        />
+      );
+    }
+
+    /* =======================================================================
+       6. MULTI-MODE CUSTOM ARCADE CURSOR WITH TRAIL & CLICK SHOCKWAVES
+       ======================================================================= */
+    function CustomArcadeCursor({ mode }) {
+      const [pos, setPos] = useState({ x: -100, y: -100 });
+      const [hovering, setHovering] = useState(false);
+      const [trails, setTrails] = useState([]);
+      const [rings, setRings] = useState([]);
+      const idCounter = useRef(0);
+      const lastTrailTime = useRef(0);
+
+      useEffect(() => {
+        document.body.classList.toggle('custom-cursor-active', mode !== 'SYSTEM');
+        if (mode === 'SYSTEM') return;
+
+        const onMove = (e) => {
+          setPos({ x: e.clientX, y: e.clientY });
+          setHovering(Boolean(e.target.closest('a, button, input, textarea, [data-interactive]')));
+
+          const now = performance.now();
+          if (now - lastTrailTime.current > 35) {
+            lastTrailTime.current = now;
+            const id = `trail-${++idCounter.current}`;
+            const color = idCounter.current % 2 === 0 ? 'var(--primary)' : 'var(--secondary)';
+            setTrails((prev) => [...prev.slice(-14), { id, x: e.clientX, y: e.clientY, color }]);
+            setTimeout(() => {
+              setTrails((prev) => prev.filter((t) => t.id !== id));
+            }, 340);
+          }
+        };
+
+        const onDown = (e) => {
+          const id = `ring-${++idCounter.current}`;
+          setRings((prev) => [...prev.slice(-6), { id, x: e.clientX, y: e.clientY }]);
+          setTimeout(() => {
+            setRings((prev) => prev.filter((r) => r.id !== id));
+          }, 500);
+        };
+
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mousedown', onDown);
+        return () => {
+          window.removeEventListener('mousemove', onMove);
+          window.removeEventListener('mousedown', onDown);
+        };
+      }, [mode]);
+
+      if (mode === 'SYSTEM') return null;
+
+      return (
+        <div className="fixed inset-0 pointer-events-none z-[60] hidden md:block">
+          {/* Trailing Neon Sparkles */}
+          {trails.map((t) => (
+            <div
+              key={t.id}
+              className="fixed w-1.5 h-1.5 -translate-x-1/2 -translate-y-1/2 rounded-xs opacity-75 transition-opacity duration-300"
+              style={{ left: t.x, top: t.y, backgroundColor: t.color }}
+            />
+          ))}
+
+          {/* Click Shockwave Rings */}
+          {rings.map((r) => (
+            <div
+              key={r.id}
+              className="fixed w-8 h-8 rounded-full border-2 click-shockwave"
+              style={{ left: r.x, top: r.y, borderColor: 'var(--primary)' }}
+            />
+          ))}
+
+          {/* Main Cursor Reticle */}
+          <div
+            className="fixed -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
+            style={{ left: pos.x, top: pos.y }}
+          >
+            {mode === 'CROSSHAIR' ? (
+              <div
+                className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-transform duration-150 ${
+                  hovering ? 'scale-150 rotate-45' : 'scale-100'
+                }`}
+                style={{ borderColor: 'var(--primary)', boxShadow: '0 0 10px var(--primary)' }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--secondary)' }} />
+              </div>
+            ) : (
+              <div
+                className={`w-5 h-5 border-2 rotate-12 transition-transform duration-150 ${
+                  hovering ? 'scale-125' : 'scale-100'
+                }`}
+                style={{
+                  backgroundColor: 'var(--primary)',
+                  borderColor: '#070714',
+                  boxShadow: '0 0 12px var(--primary)',
+                }}
+              />
+            )}
           </div>
         </div>
-      </section>
+      );
+    }
 
-      <section id="projects">
-        <p class="section-label">02 // Projects</p>
-        <h2>More levels loading.</h2>
-        <article class="card project-card">
-          <div>
-            <span class="project-status">STATUS // COMING SOON</span>
-            <h3>My first projects will appear here.</h3>
-            <p>I’m working toward projects I’m proud to share. Check back later for updates.</p>
-          </div>
-          <div class="focus-list" aria-label="Areas of interest">
-            <span class="chip">FRONTEND</span>
-            <span class="chip">FULL STACK</span>
-            <span class="chip">AI PROMPT ENGINEERING</span>
-          </div>
-        </article>
-      </section>
+    /* =======================================================================
+       7. PLAYABLE 2D CANVAS MINI-GAME ("BUG BLASTER")
+       ======================================================================= */
+    function BugBlasterGame() {
+      const canvasRef = useRef(null);
+      const [score, setScore] = useState(0);
+      const [bugsLeft, setBugsLeft] = useState(12);
+      const [victory, setVictory] = useState(false);
 
-      <section id="contact">
-        <p class="section-label">03 // Contact</p>
-        <div class="card contact-card">
-          <div>
-            <h2 style="margin-bottom:10px">Want to say hello?</h2>
-            <p>If you’d like to get in touch, send me an email.</p>
+      const gameState = useRef({
+        player: { x: 378, y: 374, w: 44, h: 24, speed: 6 },
+        keys: { left: false, right: false },
+        bullets: [],
+        bugs: [],
+        bugDir: 1,
+        score: 0,
+        won: false,
+        lastShot: 0,
+      });
+
+      const resetGame = useCallback(() => {
+        const s = gameState.current;
+        s.player.x = 378;
+        s.bullets = [];
+        s.score = 0;
+        s.won = false;
+        s.bugDir = 1;
+        s.bugs = [];
+
+        const cols = 6;
+        const rows = 2;
+        const spacingX = 105;
+        const startX = (800 - (cols - 1) * spacingX) / 2 - 18;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            s.bugs.push({
+              x: startX + c * spacingX,
+              y: 44 + r * 54,
+              w: 36,
+              h: 26,
+              alive: true,
+              color: r === 0 ? '#ff007f' : '#39ff14',
+            });
+          }
+        }
+        setScore(0);
+        setBugsLeft(12);
+        setVictory(false);
+      }, []);
+
+      const fireLaser = useCallback(() => {
+        const s = gameState.current;
+        if (s.won) return;
+        const now = performance.now();
+        if (now - s.lastShot < 210) return;
+        s.lastShot = now;
+        s.bullets.push({
+          x: s.player.x + s.player.w / 2 - 3,
+          y: s.player.y - 10,
+          w: 6,
+          h: 16,
+          speed: 9,
+        });
+        synth.playLaser();
+      }, []);
+
+      useEffect(() => {
+        resetGame();
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        let animId;
+
+        const onKeyDown = (e) => {
+          const tag = document.activeElement?.tagName;
+          if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+          if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') gameState.current.keys.left = true;
+          if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') gameState.current.keys.right = true;
+          if (e.code === 'Space') {
+            const rect = canvas.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              e.preventDefault();
+              fireLaser();
+            }
+          }
+        };
+
+        const onKeyUp = (e) => {
+          if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') gameState.current.keys.left = false;
+          if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') gameState.current.keys.right = false;
+        };
+
+        window.addEventListener('keydown', onKeyDown);
+        window.addEventListener('keyup', onKeyUp);
+
+        const loop = () => {
+          const s = gameState.current;
+          ctx.clearRect(0, 0, 800, 420);
+
+          // Starfield
+          ctx.fillStyle = 'rgba(255,255,255,0.22)';
+          for (let i = 0; i < 24; i++) {
+            ctx.fillRect((i * 97) % 800, (i * 53) % 420, 2, 2);
+          }
+
+          if (!s.won) {
+            if (s.keys.left) s.player.x = Math.max(14, s.player.x - s.player.speed);
+            if (s.keys.right) s.player.x = Math.min(800 - s.player.w - 14, s.player.x + s.player.speed);
+
+            let hitEdge = false;
+            s.bugs.forEach((b) => {
+              if (!b.alive) return;
+              b.x += s.bugDir * 1.4;
+              if (b.x <= 16 || b.x + b.w >= 784) hitEdge = true;
+            });
+            if (hitEdge) s.bugDir *= -1;
+
+            s.bullets.forEach((b) => {
+              b.y -= b.speed;
+              s.bugs.forEach((bug) => {
+                if (!bug.alive) return;
+                if (
+                  b.x < bug.x + bug.w &&
+                  b.x + b.w > bug.x &&
+                  b.y < bug.y + bug.h &&
+                  b.y + b.h > bug.y
+                ) {
+                  bug.alive = false;
+                  b.y = -100;
+                  s.score += 100;
+                  synth.playBlip();
+                  setScore(s.score);
+                  const remaining = s.bugs.filter((item) => item.alive).length;
+                  setBugsLeft(remaining);
+                  if (remaining === 0) {
+                    s.won = true;
+                    setVictory(true);
+                    synth.playFanfare();
+                  }
+                }
+              });
+            });
+            s.bullets = s.bullets.filter((b) => b.y > -20);
+          }
+
+          // Draw Pixel Bugs
+          s.bugs.forEach((bug) => {
+            if (!bug.alive) return;
+            ctx.fillStyle = bug.color;
+            ctx.fillRect(bug.x + 6, bug.y, 4, 5);
+            ctx.fillRect(bug.x + bug.w - 10, bug.y, 4, 5);
+            ctx.fillRect(bug.x + 4, bug.y + 5, bug.w - 8, bug.h - 10);
+            ctx.fillRect(bug.x, bug.y + 9, 4, 8);
+            ctx.fillRect(bug.x + bug.w - 4, bug.y + 9, 4, 8);
+            ctx.fillStyle = '#070714';
+            ctx.fillRect(bug.x + 10, bug.y + 10, 5, 5);
+            ctx.fillRect(bug.x + bug.w - 15, bug.y + 10, 5, 5);
+          });
+
+          // Draw Lasers
+          ctx.fillStyle = '#ffe600';
+          s.bullets.forEach((b) => ctx.fillRect(b.x, b.y, b.w, b.h));
+
+          // Draw Debugger Ship
+          const isGod = document.body.classList.contains('god-mode');
+          ctx.fillStyle = isGod ? '#ffd700' : '#00f5ff';
+          ctx.fillRect(s.player.x + s.player.w / 2 - 4, s.player.y - 6, 8, 10);
+          ctx.fillRect(s.player.x + 6, s.player.y + 4, s.player.w - 12, s.player.h - 8);
+          ctx.fillRect(s.player.x, s.player.y + 10, s.player.w, s.player.h - 10);
+          ctx.fillStyle = '#ff007f';
+          ctx.fillRect(s.player.x + s.player.w / 2 - 5, s.player.y + 8, 10, 6);
+
+          animId = requestAnimationFrame(loop);
+        };
+
+        animId = requestAnimationFrame(loop);
+        return () => {
+          cancelAnimationFrame(animId);
+          window.removeEventListener('keydown', onKeyDown);
+          window.removeEventListener('keyup', onKeyUp);
+        };
+      }, [fireLaser, resetGame]);
+
+      return (
+        <section id="break-room" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800/70">
+          <div className="text-center mb-8">
+            <span className="font-vt text-xl text-yellowNeon tracking-widest">// INSERT TIME TO DE-STRESS</span>
+            <h2 className="font-pixel text-lg sm:text-2xl md:text-3xl text-white mt-2">
+              🕹️ THE BREAK ROOM // BUG BLASTER
+            </h2>
+            <p className="text-slate-300 mt-2 max-w-xl mx-auto text-sm sm:text-base">
+              Squash all 12 production bugs! Use <kbd className="px-2 py-0.5 bg-cabinet border border-slate-700 rounded text-cyanNeon font-mono text-xs">←</kbd>{' '}
+              <kbd className="px-2 py-0.5 bg-cabinet border border-slate-700 rounded text-cyanNeon font-mono text-xs">→</kbd> or{' '}
+              <kbd className="px-2 py-0.5 bg-cabinet border border-slate-700 rounded text-cyanNeon font-mono text-xs">A</kbd>{' '}
+              <kbd className="px-2 py-0.5 bg-cabinet border border-slate-700 rounded text-cyanNeon font-mono text-xs">D</kbd> to steer and{' '}
+              <kbd className="px-2 py-0.5 bg-cabinet border border-slate-700 rounded text-magentaNeon font-mono text-xs">SPACE</kbd> to fire.
+            </p>
           </div>
-          <a class="button" href="mailto:alexiscamilo019@gmail.com">alexiscamilo019@gmail.com ↗</a>
+
+          <div className="bg-cabinet/95 border-2 neon-border-secondary rounded-2xl p-4 sm:p-6 shadow-2xl">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800 font-pixel text-xs sm:text-sm">
+              <div className="text-cyanNeon">
+                SCORE: <span className="text-white">{String(score).padStart(4, '0')}</span>
+              </div>
+              <div className="text-yellowNeon">BUGS LEFT: {bugsLeft}/12</div>
+              <button
+                type="button"
+                onClick={() => {
+                  synth.playCoin();
+                  resetGame();
+                }}
+                className="px-3 py-1.5 rounded bg-void border border-slate-700 hover:border-cyanNeon font-vt text-lg text-slate-200 transition-colors"
+              >
+                ↻ RESET CABINET
+              </button>
+            </div>
+
+            <div className="relative rounded-xl overflow-hidden border-2 border-slate-800 bg-[#050510]">
+              <canvas ref={canvasRef} width={800} height={420} className="w-full h-auto block mx-auto" />
+
+              {victory && (
+                <div className="absolute inset-0 bg-void/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
+                  <div className="px-3 py-1 rounded bg-greenNeon/20 border border-greenNeon font-vt text-xl text-greenNeon">
+                    STAGE CLEARED // +1200 XP
+                  </div>
+                  <h3 className="font-pixel text-lg sm:text-2xl text-yellowNeon leading-relaxed">
+                    VICTORY: ALL BUGS SQUASHED
+                  </h3>
+                  <p className="font-vt text-2xl text-white">
+                    FINAL SCORE: <span className="text-cyanNeon">{score}</span> PTS
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      synth.playCoin();
+                      resetGame();
+                    }}
+                    className="arcade-btn-primary px-6 py-3 rounded font-pixel text-xs sm:text-sm"
+                  >
+                    PLAY AGAIN
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Touch / Mouse Controls */}
+            <div className="mt-5 flex items-center justify-between gap-4 select-none">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onPointerDown={() => (gameState.current.keys.left = true)}
+                  onPointerUp={() => (gameState.current.keys.left = false)}
+                  onPointerLeave={() => (gameState.current.keys.left = false)}
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-void border-2 border-cyanNeon/70 active:bg-cyanNeon active:text-void font-pixel text-lg text-cyanNeon flex items-center justify-center"
+                >
+                  ◀
+                </button>
+                <button
+                  type="button"
+                  onPointerDown={() => (gameState.current.keys.right = true)}
+                  onPointerUp={() => (gameState.current.keys.right = false)}
+                  onPointerLeave={() => (gameState.current.keys.right = false)}
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-void border-2 border-cyanNeon/70 active:bg-cyanNeon active:text-void font-pixel text-lg text-cyanNeon flex items-center justify-center"
+                >
+                  ▶
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onPointerDown={fireLaser}
+                className="arcade-btn-secondary px-6 sm:px-8 h-14 sm:h-16 rounded-xl font-pixel text-xs sm:text-sm tracking-wider"
+              >
+                FIRE 🔥
+              </button>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* =======================================================================
+       8. MAIN PORTFOLIO APPLICATION
+       ======================================================================= */
+    function ArcadePortfolioApp() {
+      const [muted, setMuted] = useState(true);
+      const [crtEnabled, setCrtEnabled] = useState(true);
+      const [cursorMode, setCursorMode] = useState('CROSSHAIR'); // CROSSHAIR | PIXEL_POINTER | SYSTEM
+      const [godMode, setGodMode] = useState(false);
+      const [godModalOpen, setGodModalOpen] = useState(false);
+
+      // Character Stats & Equipped Weapon Inspector State
+      const [skillCategory, setSkillCategory] = useState('ALL');
+      const [equippedSkill, setEquippedSkill] = useState(PORTFOLIO_CONFIG.skills[0]);
+
+      // Stage Select Modals (Cartridge Boot & Blueprint Peek)
+      const [activeCartridge, setActiveCartridge] = useState(null);
+      const [blueprintModalStage, setBlueprintModalStage] = useState(null);
+
+      // High Score Leaderboard State
+      const [leaderboard, setLeaderboard] = useState(PORTFOLIO_CONFIG.initialLeaderboard);
+      const [initials, setInitials] = useState('');
+      const [callsign, setCallsign] = useState('');
+      const [email, setEmail] = useState('');
+      const [message, setMessage] = useState('');
+      const [submittedFlash, setSubmittedFlash] = useState(false);
+
+      // Konami Code Listener
+      const triggerGodMode = useCallback(() => {
+        document.body.classList.add('god-mode');
+        setGodMode(true);
+        setGodModalOpen(true);
+        synth.muted = false;
+        setMuted(false);
+        synth.playFanfare(true);
+      }, []);
+
+      useEffect(() => {
+        const seq = [
+          'arrowup',
+          'arrowup',
+          'arrowdown',
+          'arrowdown',
+          'arrowleft',
+          'arrowright',
+          'arrowleft',
+          'arrowright',
+          'b',
+          'a',
+        ];
+        let idx = 0;
+
+        const onKey = (e) => {
+          const k = e.key.toLowerCase();
+          if (k === seq[idx]) {
+            idx++;
+            if (idx === seq.length) {
+              idx = 0;
+              triggerGodMode();
+            }
+          } else {
+            idx = k === seq[0] ? 1 : 0;
+          }
+        };
+
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+      }, [triggerGodMode]);
+
+      const toggleMute = () => {
+        const nextMuted = !muted;
+        synth.muted = nextMuted;
+        setMuted(nextMuted);
+        if (!nextMuted) synth.playBlip(true);
+      };
+
+      const cycleCursorMode = () => {
+        const order = ['CROSSHAIR', 'PIXEL_POINTER', 'SYSTEM'];
+        const next = order[(order.indexOf(cursorMode) + 1) % order.length];
+        setCursorMode(next);
+        synth.playBlip();
+      };
+
+      const filteredSkills =
+        skillCategory === 'ALL'
+          ? PORTFOLIO_CONFIG.skills
+          : PORTFOLIO_CONFIG.skills.filter((s) => s.category === skillCategory);
+
+      const handleLeaderboardSubmit = (e) => {
+        e.preventDefault();
+        const cleanTag = (initials.trim() || 'YOU').toUpperCase().padEnd(3, 'X').slice(0, 3);
+        const topScore = (leaderboard[0]?.score || 99900) + Math.floor(Math.random() * 450 + 150);
+
+        setLeaderboard((prev) => [
+          {
+            id: Date.now(),
+            tag: cleanTag,
+            callsign: callsign.trim().toUpperCase(),
+            score: topScore,
+            isNew: true,
+          },
+          ...prev.map((item) => ({ ...item, isNew: false })),
+        ]);
+
+        synth.playCoin();
+        setSubmittedFlash(true);
+        setInitials('');
+        setCallsign('');
+        setEmail('');
+        setMessage('');
+      };
+
+      return (
+        <div className="min-h-screen relative">
+          <SynthwaveBackground godMode={godMode} />
+
+          {/* Radial Vignette */}
+          <div
+            className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_25%,#070714_95%)]"
+            aria-hidden="true"
+          />
+
+          {/* CRT Scanline Overlay */}
+          {crtEnabled && (
+            <div
+              className="fixed inset-0 pointer-events-none z-50 crt-scanlines opacity-75"
+              aria-hidden="true"
+            />
+          )}
+
+          {/* Custom Desktop Arcade Cursor */}
+          <CustomArcadeCursor mode={cursorMode} />
+
+          {/* =============================================================== */}
+          {/* STICKY ARCADE CABINET HUD HEADER                                */}
+          {/* =============================================================== */}
+          <header className="sticky top-0 z-40 bg-void/90 backdrop-blur-md border-b border-slate-800/90">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+              <a
+                href="#hero"
+                onMouseEnter={() => synth.playBlip()}
+                className="flex items-center gap-2.5 font-pixel text-xs sm:text-sm tracking-wider text-white hover-flicker"
+              >
+                <span
+                  className="inline-block w-3 h-3 rounded-sm animate-pulse"
+                  style={{ backgroundColor: 'var(--primary)', boxShadow: '0 0 10px var(--primary)' }}
+                />
+                <span>
+                  ARCADE<span className="neon-text-primary">.DEV</span>
+                </span>
+              </a>
+
+              {/* Live HUD Status Strip */}
+              <div className="hidden lg:flex items-center gap-4 px-4 py-1.5 rounded bg-cabinet/90 border border-slate-800 font-vt text-lg tracking-widest text-slate-200">
+                <span>
+                  CREDITS: <strong className="text-yellowNeon">{godMode ? '∞' : '99'}</strong>
+                </span>
+                <span className="text-slate-600">|</span>
+                <span>
+                  LVL: <strong className="text-greenNeon">99</strong>
+                </span>
+                <span className="text-slate-600">|</span>
+                <span>
+                  STATUS:{' '}
+                  <strong className="neon-text-primary">
+                    {godMode ? 'GOD MODE' : 'READY FOR HIRE'}
+                  </strong>
+                </span>
+              </div>
+
+              {/* Navigation */}
+              <nav className="hidden md:flex items-center gap-5 font-vt text-xl tracking-wider">
+                <a href="#character-stats" onMouseEnter={() => synth.playBlip()} className="hover:text-cyanNeon">
+                  STATS
+                </a>
+                <a href="#stage-select" onMouseEnter={() => synth.playBlip()} className="hover:text-cyanNeon">
+                  STAGES
+                </a>
+                <a href="#break-room" onMouseEnter={() => synth.playBlip()} className="hover:text-yellowNeon">
+                  BUG BLASTER
+                </a>
+                <a href="#quest-log" onMouseEnter={() => synth.playBlip()} className="hover:text-cyanNeon">
+                  QUEST LOG
+                </a>
+                <a href="#high-score-contact" onMouseEnter={() => synth.playBlip()} className="hover:text-magentaNeon">
+                  HIGH SCORES
+                </a>
+              </nav>
+
+              {/* Hardware Controls: Sound, CRT, Cursor Mode, Cheat */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="px-2.5 py-1.5 rounded bg-cabinet border border-slate-700 hover:border-cyanNeon font-vt text-base sm:text-lg tracking-wider text-slate-200 flex items-center gap-1.5"
+                >
+                  <Icon
+                    name={muted ? 'volume-x' : 'volume-2'}
+                    className={`w-4 h-4 ${muted ? 'text-magentaNeon' : 'text-greenNeon'}`}
+                  />
+                  <span>{muted ? 'MUTED' : 'SFX: ON'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCrtEnabled(!crtEnabled);
+                    synth.playBlip();
+                  }}
+                  className="px-2.5 py-1.5 rounded bg-cabinet border border-cyanNeon/60 font-vt text-base sm:text-lg tracking-wider text-cyanNeon flex items-center gap-1.5"
+                >
+                  <Icon name="monitor" className="w-4 h-4" />
+                  <span>CRT: {crtEnabled ? 'ON' : 'OFF'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={cycleCursorMode}
+                  className="hidden md:flex px-2.5 py-1.5 rounded bg-cabinet border border-slate-700 hover:border-cyanNeon font-vt text-lg tracking-wider text-slate-300 items-center gap-1.5"
+                >
+                  <Icon name="crosshair" className="w-4 h-4 text-cyanNeon" />
+                  <span>{cursorMode}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={triggerGodMode}
+                  onMouseEnter={() => synth.playBlip()}
+                  className="px-2.5 py-1.5 rounded bg-cabinet border border-yellowNeon/60 hover:bg-yellowNeon hover:text-void font-vt text-base sm:text-lg tracking-wider text-yellowNeon transition-colors"
+                >
+                  🎮 CHEAT
+                </button>
+              </div>
+            </div>
+
+            {/* Interactive Web Audio Synthesizer Soundboard Strip */}
+            <div className="border-t border-slate-800/70 bg-cabinet/60 px-4 py-1.5">
+              <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 font-vt text-base text-slate-400">
+                <span>WEB AUDIO 8-BIT SYNTH DECK (CLICK TO TEST):</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (muted) {
+                        synth.muted = false;
+                        setMuted(false);
+                      }
+                      synth.playBlip(true);
+                    }}
+                    className="px-2.5 py-0.5 rounded bg-void border border-slate-700 hover:border-cyanNeon text-cyanNeon"
+                  >
+                    ♪ BLIP
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (muted) {
+                        synth.muted = false;
+                        setMuted(false);
+                      }
+                      synth.playCoin(true);
+                    }}
+                    className="px-2.5 py-0.5 rounded bg-void border border-slate-700 hover:border-yellowNeon text-yellowNeon"
+                  >
+                    ♪ COIN CHIME
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (muted) {
+                        synth.muted = false;
+                        setMuted(false);
+                      }
+                      synth.playLaser(true);
+                    }}
+                    className="px-2.5 py-0.5 rounded bg-void border border-slate-700 hover:border-magentaNeon text-magentaNeon"
+                  >
+                    ♪ LASER SWEEP
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (muted) {
+                        synth.muted = false;
+                        setMuted(false);
+                      }
+                      synth.playFanfare(true);
+                    }}
+                    className="px-2.5 py-0.5 rounded bg-void border border-slate-700 hover:border-greenNeon text-greenNeon"
+                  >
+                    ♪ VICTORY FANFARE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <main className="relative z-10">
+            {/* ============================================================= */}
+            {/* SECTION 1: HERO ("START SCREEN / PLAYER 1")                   */}
+            {/* ============================================================= */}
+            <section id="hero" className="min-h-[85vh] flex items-center max-w-7xl mx-auto px-4 sm:px-6 py-16">
+              <div className="grid lg:grid-cols-12 gap-10 items-center w-full">
+                <div className="lg:col-span-7 space-y-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-cabinet/90 border neon-border-primary font-vt text-lg tracking-widest">
+                    <span className="w-2 h-2 rounded-full bg-greenNeon animate-ping" />
+                    <span className="neon-text-primary">1UP // SYSTEM BOOT COMPLETE</span>
+                  </div>
+
+                  <h1 className="font-pixel text-2xl sm:text-4xl lg:text-[2.65rem] leading-snug text-white hover-flicker">
+                    PLAYER 1:{' '}
+                    <ScrambleText
+                      text={PORTFOLIO_CONFIG.playerName}
+                      className="neon-text-primary"
+                    />
+                  </h1>
+
+                  <p className="font-vt text-2xl sm:text-3xl text-yellowNeon tracking-wide">
+                    &gt; {PORTFOLIO_CONFIG.playerTitle}
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-3 px-4 py-2.5 rounded-lg bg-cabinet/90 border border-slate-800 font-vt text-xl tracking-wider">
+                    <span>
+                      CREDITS: <strong className="text-yellowNeon">{godMode ? '∞' : '99'}</strong>
+                    </span>
+                    <span className="text-slate-600">|</span>
+                    <span>
+                      LVL: <strong className="text-greenNeon">99</strong>
+                    </span>
+                    <span className="text-slate-600">|</span>
+                    <span>
+                      STATUS:{' '}
+                      <strong className="neon-text-primary">
+                        {godMode ? 'GOD MODE' : 'READY FOR HIRE'}
+                      </strong>
+                    </span>
+                  </div>
+
+                  <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+                    Architecting high-FPS web applications, resilient distributed APIs, and interactive digital worlds. Press Start to explore cleared stages or insert a coin to launch a co-op mission.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <a
+                      href="#stage-select"
+                      onClick={() => synth.playCoin()}
+                      onMouseEnter={() => synth.playBlip()}
+                      className="arcade-btn-primary px-6 py-4 rounded font-pixel text-xs sm:text-sm tracking-wider inline-flex items-center gap-2.5"
+                    >
+                      <Icon name="gamepad-2" className="w-4 h-4" />
+                      <span>SELECT STAGE</span>
+                    </a>
+
+                    <a
+                      href="#high-score-contact"
+                      onClick={() => synth.playCoin()}
+                      onMouseEnter={() => synth.playBlip()}
+                      className="arcade-btn-secondary px-6 py-4 rounded font-pixel text-xs sm:text-sm tracking-wider inline-flex items-center gap-2.5"
+                    >
+                      <Icon name="coins" className="w-4 h-4" />
+                      <span>INSERT COIN</span>
+                    </a>
+                  </div>
+
+                  <p className="font-vt text-lg text-slate-400 tracking-wider">
+                    EASTER EGG: Enter <span className="text-yellowNeon">↑ ↑ ↓ ↓ ← → ← → B A</span> on your keyboard for GOD MODE.
+                  </p>
+                </div>
+
+                {/* Fighter Profile Cabinet Card */}
+                <div className="lg:col-span-5">
+                  <div
+                    data-interactive
+                    className="bg-cabinet/95 border-2 neon-border-primary rounded-xl p-6 space-y-5 relative overflow-hidden"
+                  >
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                      <span className="font-pixel text-xs neon-text-primary">FIGHTER PROFILE</span>
+                      <span className="px-2 py-0.5 rounded bg-greenNeon/15 border border-greenNeon text-greenNeon font-vt text-base">
+                        ONLINE
+                      </span>
+                    </div>
+
+                    <div className="aspect-[16/10] rounded-lg bg-void border border-slate-800 flex flex-col items-center justify-center p-4">
+                      <div className="w-20 h-20 rounded-lg border-2 neon-border-secondary flex items-center justify-center bg-cabinet mb-3">
+                        <Icon name="cpu" className="w-10 h-10 neon-text-primary" />
+                      </div>
+                      <span className="font-pixel text-xs text-white tracking-wider">CLASS: ARCHITECT</span>
+                      <span className="font-vt text-lg text-slate-400 mt-1">{PORTFOLIO_CONFIG.location}</span>
+                    </div>
+
+                    <div className="space-y-3 font-vt text-lg">
+                      {PORTFOLIO_CONFIG.powerMeters.map((m) => (
+                        <div key={m.label}>
+                          <div className="flex justify-between mb-1">
+                            <span className="text-slate-200">{m.label}</span>
+                            <span style={{ color: m.color }}>{m.value} / 100</span>
+                          </div>
+                          <div className="h-2.5 bg-void rounded overflow-hidden border border-slate-800">
+                            <div
+                              className="h-full transition-all duration-500"
+                              style={{ width: `${m.value}%`, backgroundColor: m.color }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ============================================================= */}
+            {/* SECTION 2: CHARACTER STATS, INVENTORY & WEAPON INSPECTOR      */}
+            {/* ============================================================= */}
+            <section id="character-stats" className="max-w-7xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800/70">
+              <div className="mb-10">
+                <span className="font-vt text-xl text-magentaNeon tracking-widest">// CHARACTER SHEET &amp; LOADOUT</span>
+                <h2 className="font-pixel text-xl sm:text-3xl text-white mt-2 hover-flicker">
+                  <ScrambleText text="CHARACTER STATS & INVENTORY" />
+                </h2>
+              </div>
+
+              <div className="grid lg:grid-cols-12 gap-8">
+                {/* Bio & Equipped Weapon Inspector Column */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="bg-cabinet/90 border border-slate-800 rounded-xl p-6 space-y-4">
+                    <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+                      <Icon name="shield-check" className="w-6 h-6 text-yellowNeon" />
+                      <h3 className="font-pixel text-sm text-white">PLAYER LORE</h3>
+                    </div>
+                    {PORTFOLIO_CONFIG.bioParagraphs.map((para, i) => (
+                      <p key={i} className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* Equipped Weapon Inspector (Restored Detail!) */}
+                  <div className="bg-cabinet/95 border-2 neon-border-secondary rounded-xl p-6 space-y-4">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                      <span className="font-pixel text-xs neon-text-secondary">EQUIPPED WEAPON INSPECTOR</span>
+                      <span className="px-2 py-0.5 rounded bg-yellowNeon/15 border border-yellowNeon text-yellowNeon font-vt text-base">
+                        {equippedSkill.rarity}
+                      </span>
+                    </div>
+
+                    <div>
+                      <div className="font-pixel text-sm text-white">{equippedSkill.name}</div>
+                      <div className="font-vt text-xl text-cyanNeon mt-0.5">
+                        {equippedSkill.weaponClass} // {equippedSkill.damage}
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-slate-300 leading-relaxed bg-void/90 p-3.5 rounded-lg border border-slate-800">
+                      {equippedSkill.tacticalNote}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Weapons / Tech Stack Grid */}
+                <div className="lg:col-span-7 bg-cabinet/90 border border-slate-800 rounded-xl p-6 space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div className="flex items-center gap-2.5">
+                      <Icon name="swords" className="w-6 h-6 text-cyanNeon" />
+                      <h3 className="font-pixel text-sm text-white">CLICK SLOT TO INSPECT</h3>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 font-vt text-lg">
+                      {['ALL', 'FRONTEND', 'BACKEND', 'TOOLS'].map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => {
+                            setSkillCategory(cat);
+                            synth.playBlip();
+                          }}
+                          className={`px-3 py-1 rounded transition-colors ${
+                            skillCategory === cat
+                              ? 'bg-cyanNeon text-void font-bold'
+                              : 'bg-void border border-slate-700 text-slate-300 hover:border-cyanNeon'
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {filteredSkills.map((skill) => {
+                      const isSelected = equippedSkill.id === skill.id;
+                      return (
+                        <button
+                          key={skill.id}
+                          type="button"
+                          onClick={() => {
+                            setEquippedSkill(skill);
+                            synth.playBlip();
+                          }}
+                          className={`text-left p-4 rounded-lg bg-void/90 border transition-all ${
+                            isSelected
+                              ? 'neon-border-primary scale-[1.02]'
+                              : 'border-slate-800 hover:border-cyanNeon/60'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div>
+                              <div className="font-semibold text-white text-sm">{skill.name}</div>
+                              <div className="font-vt text-sm text-slate-400">{skill.category}</div>
+                            </div>
+                            <span className="font-pixel text-[10px] text-yellowNeon">LVL {skill.level}</span>
+                          </div>
+                          <div className="h-2 bg-cabinet rounded overflow-hidden border border-slate-800">
+                            <div
+                              className="h-full bg-gradient-to-r from-cyanNeon to-magentaNeon"
+                              style={{ width: `${skill.level}%` }}
+                            />
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ============================================================= */}
+            {/* SECTION 3: STAGE SELECT (PROJECTS & FUTURE ROADMAP)           */}
+            {/* ============================================================= */}
+            <section id="stage-select" className="max-w-7xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800/70">
+              <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+                <div>
+                  <span className="font-vt text-xl text-cyanNeon tracking-widest">// SELECT CARTRIDGE TO LAUNCH</span>
+                  <h2 className="font-pixel text-xl sm:text-3xl text-white mt-2 hover-flicker">
+                    <ScrambleText text="STAGE SELECT" />
+                  </h2>
+                </div>
+
+                <div className="flex items-center gap-3 font-vt text-lg">
+                  <span className="inline-flex items-center gap-1.5 text-greenNeon">
+                    <span className="w-2.5 h-2.5 rounded-full bg-greenNeon" /> PLAYABLE STAGES
+                  </span>
+                  <span className="text-slate-600">|</span>
+                  <span className="inline-flex items-center gap-1.5 text-yellowNeon">
+                    <Icon name="lock" className="w-4 h-4" /> LOCKED / IN DEV
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+                {PORTFOLIO_CONFIG.projects.map((proj) => {
+                  if (proj.locked) {
+                    return (
+                      <article
+                        key={proj.id}
+                        className="rounded-xl bg-cabinet/65 border-2 border-dashed border-yellowNeon/50 p-6 flex flex-col justify-between relative overflow-hidden"
+                      >
+                        <div className="hazard-stripes absolute inset-0 pointer-events-none" />
+                        <div className="relative z-10 space-y-4">
+                          <div className="flex items-center justify-between">
+                            <span className="font-pixel text-[10px] text-yellowNeon">{proj.stage}</span>
+                            <span className="px-2.5 py-1 rounded bg-yellowNeon/15 border border-yellowNeon text-yellowNeon font-vt text-base inline-flex items-center gap-1.5">
+                              <Icon name="lock" className="w-3.5 h-3.5 animate-bounce" />
+                              STAGE IN DEVELOPMENT
+                            </span>
+                          </div>
+
+                          <div className="aspect-video rounded-lg bg-void/90 border border-slate-800 flex flex-col items-center justify-center p-4 text-center">
+                            <Icon name="lock" className="w-10 h-10 text-yellowNeon mb-2" />
+                            <span className="font-pixel text-xs text-slate-300">ENCRYPTED CARTRIDGE</span>
+                            <span className="font-vt text-lg text-yellowNeon mt-1">
+                              {proj.progress}% COMPILED // ETA {proj.eta}
+                            </span>
+                          </div>
+
+                          <h3 className="font-pixel text-sm text-white">{proj.title}</h3>
+                          <p className="text-sm text-slate-400 leading-relaxed">{proj.description}</p>
+                        </div>
+
+                        <div className="relative z-10 pt-5 mt-5 border-t border-slate-800/80 space-y-3">
+                          <div className="flex flex-wrap gap-2">
+                            {proj.tags.map((t) => (
+                              <span
+                                key={t}
+                                className="px-2.5 py-0.5 rounded bg-void border border-slate-700 font-vt text-base text-slate-300"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Restored Blueprint Peek Button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              synth.playCoin();
+                              setBlueprintModalStage(proj);
+                            }}
+                            className="w-full py-2.5 px-3 rounded bg-void border border-yellowNeon/70 hover:bg-yellowNeon hover:text-void text-yellowNeon font-pixel text-[10px] transition-colors"
+                          >
+                            INSERT COIN TO PEEK BLUEPRINT
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  }
+
+                  return (
+                    <article
+                      key={proj.id}
+                      data-interactive
+                      className={`rounded-xl bg-cabinet/95 border border-slate-800 ${
+                        proj.accent === 'magenta' ? 'hover:neon-border-secondary' : 'hover:neon-border-primary'
+                      } p-6 flex flex-col justify-between group transition-all hover:-translate-y-1`}
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="font-pixel text-[10px] neon-text-primary">{proj.stage}</span>
+                          <span className="px-2 py-0.5 rounded bg-greenNeon/15 border border-greenNeon text-greenNeon font-vt text-base">
+                            READY
+                          </span>
+                        </div>
+
+                        <div className="aspect-video rounded-lg bg-void border border-slate-800 relative overflow-hidden flex flex-col items-center justify-center p-4 text-center">
+                          <Icon
+                            name="terminal"
+                            className="w-9 h-9 mb-2 neon-text-primary group-hover:scale-110 transition-transform"
+                          />
+                          <span className="font-vt text-lg tracking-widest text-slate-300">
+                            {proj.subtitle}
+                          </span>
+                        </div>
+
+                        <h3 className="font-pixel text-sm text-white group-hover:text-cyanNeon transition-colors">
+                          <ScrambleText text={proj.title} />
+                        </h3>
+
+                        <p className="text-sm text-slate-300 leading-relaxed">{proj.description}</p>
+
+                        <div className="flex flex-wrap gap-2">
+                          {proj.tags.map((t) => (
+                            <span
+                              key={t}
+                              className="px-2.5 py-0.5 rounded bg-void border border-slate-700 font-vt text-base text-cyanNeon"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 pt-5 mt-5 border-t border-slate-800">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            synth.playCoin();
+                            setActiveCartridge(proj);
+                          }}
+                          className="arcade-btn-primary py-2.5 px-3 rounded font-pixel text-[10px] inline-flex items-center justify-center gap-1.5"
+                        >
+                          <Icon name="play" className="w-3.5 h-3.5" />
+                          <span>PLAY DEMO</span>
+                        </button>
+                        <a
+                          href={proj.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onMouseEnter={() => synth.playBlip()}
+                          className="py-2.5 px-3 rounded bg-void border border-slate-700 hover:border-cyanNeon text-white font-pixel text-[10px] inline-flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <Icon name="github" className="w-3.5 h-3.5" />
+                          <span>SOURCE</span>
+                        </a>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* ============================================================= */}
+            {/* PLAYABLE 2D CANVAS MINI-GAME ("BUG BLASTER")                  */}
+            {/* ============================================================= */}
+            <BugBlasterGame />
+
+            {/* ============================================================= */}
+            {/* SECTION 4: QUEST LOG ("EXPERIENCE / TIMELINE")                */}
+            {/* ============================================================= */}
+            <section id="quest-log" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800/70">
+              <div className="mb-10">
+                <span className="font-vt text-xl text-greenNeon tracking-widest">
+                  // CLEARED CAMPAIGNS &amp; BOSS BATTLES
+                </span>
+                <h2 className="font-pixel text-xl sm:text-3xl text-white mt-2 hover-flicker">
+                  <ScrambleText text="QUEST LOG" />
+                </h2>
+              </div>
+
+              <div className="relative border-l-2 border-cyanNeon/50 ml-3 sm:ml-6 space-y-8 pl-6 sm:pl-10">
+                {PORTFOLIO_CONFIG.quests.map((q) => (
+                  <div
+                    key={q.level}
+                    className="relative bg-cabinet/90 border border-slate-800 rounded-xl p-6 hover:border-cyanNeon/70 transition-colors"
+                  >
+                    <span className="absolute -left-[33px] sm:-left-[49px] top-6 w-4 h-4 rounded-full bg-cyanNeon border-4 border-void shadow-[0_0_12px_#00f5ff]" />
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <span className="px-2.5 py-0.5 rounded bg-greenNeon/15 border border-greenNeon text-greenNeon font-vt text-base">
+                        {q.level}
+                      </span>
+                      <span className="font-vt text-lg text-yellowNeon">{q.period}</span>
+                    </div>
+                    <h3 className="font-pixel text-xs sm:text-sm text-white mt-2">{q.role}</h3>
+                    <div className="font-vt text-xl text-cyanNeon mb-2">@ {q.company}</div>
+                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed">{q.summary}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ============================================================= */}
+            {/* SECTION 5: HIGH SCORE LEADERBOARD & TRANSMISSION CONTACT      */}
+            {/* ============================================================= */}
+            <section id="high-score-contact" className="max-w-7xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800/70">
+              <div className="mb-10">
+                <span className="font-vt text-xl text-yellowNeon tracking-widest">
+                  // INSERT COIN TO REGISTER TRANSMISSION
+                </span>
+                <h2 className="font-pixel text-lg sm:text-2xl md:text-3xl text-white mt-2">
+                  🏆 HIGH SCORE LEADERBOARD &amp; TRANSMISSION
+                </h2>
+              </div>
+
+              <div className="grid lg:grid-cols-12 gap-8 items-start">
+                {/* Arcade Submission Form */}
+                <div className="lg:col-span-5 bg-cabinet/95 border-2 neon-border-primary rounded-xl p-6 space-y-5">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 className="font-pixel text-xs sm:text-sm neon-text-primary">NEW CHALLENGER ENTRY</h3>
+                    <span className="font-vt text-lg text-yellowNeon animate-pulse">INSERT COIN</span>
+                  </div>
+
+                  <form onSubmit={handleLeaderboardSubmit} className="space-y-4">
+                    <div>
+                      <label className="block font-vt text-lg text-slate-300 mb-1">
+                        3-LETTER INITIALS (ARCADE TAG)
+                      </label>
+                      <input
+                        type="text"
+                        maxLength={3}
+                        required
+                        value={initials}
+                        onChange={(e) =>
+                          setInitials(e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase())
+                        }
+                        placeholder="DEV"
+                        className="w-36 mx-auto block text-center uppercase font-pixel text-2xl tracking-[0.35em] py-3 px-4 rounded bg-void border-2 border-yellowNeon text-yellowNeon focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-vt text-lg text-slate-300 mb-1">
+                        CALLSIGN / NAME &amp; COMPANY
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={callsign}
+                        onChange={(e) => setCallsign(e.target.value)}
+                        placeholder="e.g. Sarah Connor // Cyberdyne"
+                        className="w-full px-4 py-2.5 rounded bg-void border border-slate-700 focus:border-cyanNeon text-white focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-vt text-lg text-slate-300 mb-1">
+                        COMMS FREQUENCY (EMAIL)
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="sarah@company.com"
+                        className="w-full px-4 py-2.5 rounded bg-void border border-slate-700 focus:border-cyanNeon text-white focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-vt text-lg text-slate-300 mb-1">
+                        TRANSMISSION MESSAGE
+                      </label>
+                      <textarea
+                        rows={3}
+                        required
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Let's build something legendary together..."
+                        className="w-full px-4 py-2.5 rounded bg-void border border-slate-700 focus:border-cyanNeon text-white focus:outline-none resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full arcade-btn-primary py-4 rounded font-pixel text-xs sm:text-sm tracking-wider"
+                    >
+                      SUBMIT HIGH SCORE ★
+                    </button>
+                  </form>
+
+                  {submittedFlash && (
+                    <div className="p-4 rounded-lg bg-greenNeon/15 border border-greenNeon text-greenNeon font-vt text-xl">
+                      ★ TRANSMISSION RECEIVED! YOUR INITIALS CLAIMED RANK #1 ON THE BOARD!
+                    </div>
+                  )}
+
+                  {/* 8-Bit Social Badges */}
+                  <div className="pt-3 border-t border-slate-800">
+                    <div className="font-vt text-lg text-slate-400 mb-3">DIRECT COMM CHANNELS:</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-vt text-lg">
+                      {PORTFOLIO_CONFIG.socials.map((soc) => (
+                        <a
+                          key={soc.label}
+                          href={soc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onMouseEnter={() => synth.playBlip()}
+                          className="flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-void border border-slate-700 hover:border-cyanNeon hover:text-cyanNeon transition-colors"
+                        >
+                          <Icon name={soc.icon} className="w-4 h-4" />
+                          <span>{soc.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hall of Fame Leaderboard Table */}
+                <div className="lg:col-span-7 bg-cabinet/95 border-2 neon-border-secondary rounded-xl p-6">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                    <h3 className="font-pixel text-xs sm:text-sm neon-text-secondary">ALL-TIME HALL OF FAME</h3>
+                    <span className="font-vt text-lg text-slate-400">TOP CHALLENGERS</span>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-slate-800 font-pixel text-[11px] sm:text-xs text-slate-400">
+                          <th className="py-3 px-3">RANK</th>
+                          <th className="py-3 px-3">TAG</th>
+                          <th className="py-3 px-3">CALLSIGN</th>
+                          <th className="py-3 px-3 text-right">SCORE</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800/80 font-vt text-xl">
+                        {leaderboard.map((entry, idx) => {
+                          const rank = idx + 1;
+                          const color =
+                            rank === 1
+                              ? 'text-yellowNeon'
+                              : rank === 2
+                              ? 'text-cyanNeon'
+                              : rank === 3
+                              ? 'text-magentaNeon'
+                              : 'text-slate-400';
+                          return (
+                            <tr key={entry.id} className={entry.isNew ? 'new-score-row' : ''}>
+                              <td className={`py-3.5 px-3 font-pixel text-xs ${color}`}>#{rank}</td>
+                              <td className="py-3.5 px-3 font-pixel text-xs text-white tracking-widest">
+                                {entry.tag}
+                              </td>
+                              <td className="py-3.5 px-3 text-slate-200">{entry.callsign}</td>
+                              <td className="py-3.5 px-3 text-right font-pixel text-xs text-greenNeon">
+                                {entry.score.toLocaleString()} PTS
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          {/* =============================================================== */}
+          {/* FOOTER                                                          */}
+          {/* =============================================================== */}
+          <footer className="relative z-10 border-t border-slate-800 bg-void/95 py-10 text-center px-4">
+            <p className="font-pixel text-xs sm:text-sm text-white tracking-wider">
+              GAME OVER? THANKS FOR VISITING - COPYRIGHT 2026
+            </p>
+            <p className="font-vt text-lg text-slate-400 mt-2">
+              BUILT WITH REACT, HTML5 CANVAS, WEB AUDIO SYNTHESIS &amp; 16-BIT SOUL
+            </p>
+          </footer>
+
+          {/* =============================================================== */}
+          {/* MODAL 1: CARTRIDGE BOOT / DEMO LAUNCHER (RESTORED DETAIL!)      */}
+          {/* =============================================================== */}
+          {activeCartridge && (
+            <div className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="max-w-lg w-full bg-cabinet border-2 neon-border-primary rounded-2xl p-6 space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="font-pixel text-xs neon-text-primary">
+                    BOOTING {activeCartridge.stage}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCartridge(null)}
+                    className="font-pixel text-xs text-slate-400 hover:text-white"
+                  >
+                    [X]
+                  </button>
+                </div>
+
+                <h3 className="font-pixel text-lg text-white">{activeCartridge.title}</h3>
+                <p className="text-sm text-slate-300 leading-relaxed">{activeCartridge.description}</p>
+
+                <div className="grid grid-cols-3 gap-2 font-vt text-base text-center">
+                  {activeCartridge.specs.map((sp) => (
+                    <div key={sp} className="p-2 rounded bg-void border border-slate-800 text-cyanNeon">
+                      {sp}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <a
+                    href={activeCartridge.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="arcade-btn-primary py-3 rounded font-pixel text-[10px] text-center"
+                  >
+                    LAUNCH LIVE APP ↗
+                  </a>
+                  <a
+                    href={activeCartridge.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-3 rounded bg-void border border-slate-700 hover:border-cyanNeon text-white font-pixel text-[10px] text-center"
+                  >
+                    VIEW GITHUB REPO
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =============================================================== */}
+          {/* MODAL 2: LOCKED STAGE BLUEPRINT PEEK (RESTORED DETAIL!)         */}
+          {/* =============================================================== */}
+          {blueprintModalStage && (
+            <div className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="max-w-lg w-full bg-cabinet border-2 border-yellowNeon rounded-2xl p-6 space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="font-pixel text-xs text-yellowNeon">
+                    BLUEPRINT SCHEMATIC // {blueprintModalStage.stage}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setBlueprintModalStage(null)}
+                    className="font-pixel text-xs text-slate-400 hover:text-white"
+                  >
+                    [X]
+                  </button>
+                </div>
+
+                <h3 className="font-pixel text-lg text-white">{blueprintModalStage.title}</h3>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between font-vt text-lg text-yellowNeon">
+                    <span>BUILD PROGRESS</span>
+                    <span>{blueprintModalStage.progress}%</span>
+                  </div>
+                  <div className="h-2.5 bg-void rounded overflow-hidden border border-slate-800">
+                    <div
+                      className="h-full bg-yellowNeon"
+                      style={{ width: `${blueprintModalStage.progress}%` }}
+                    />
+                  </div>
+                </div>
+
+                <ul className="space-y-2 text-sm text-slate-300 list-disc pl-5">
+                  {blueprintModalStage.blueprintNotes.map((note, idx) => (
+                    <li key={idx}>{note}</li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  onClick={() => setBlueprintModalStage(null)}
+                  className="w-full py-3 rounded bg-yellowNeon text-void font-pixel text-xs"
+                >
+                  CLOSE SCHEMATIC
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* =============================================================== */}
+          {/* MODAL 3: SECRET KONAMI CODE ("GOD MODE")                        */}
+          {/* =============================================================== */}
+          {godModalOpen && (
+            <div className="fixed inset-0 z-[75] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="max-w-lg w-full bg-cabinet border-4 border-goldNeon rounded-2xl p-6 sm:p-8 text-center space-y-5 shadow-[0_0_50px_rgba(255,215,0,0.55)]">
+                <div className="inline-block px-3 py-1 rounded bg-goldNeon/20 border border-goldNeon font-pixel text-xs text-goldNeon">
+                  ★ CHEAT CODE ACCEPTED ★
+                </div>
+
+                <h3 className="font-pixel text-xl sm:text-2xl text-goldNeon leading-snug">
+                  GOD MODE ACTIVATED
+                </h3>
+
+                <p className="text-slate-200 leading-relaxed">
+                  You unlocked the secret developer vault! Infinite credits granted, gold cabinet plating engaged, and priority co-op line opened directly to my inbox.
+                </p>
+
+                <div className="p-4 rounded-xl bg-void border border-goldNeon/50 font-vt text-xl text-goldNeon">
+                  VIP DIRECT CHANNEL:
+                  <a
+                    href={`mailto:${PORTFOLIO_CONFIG.vipEmail}?subject=GOD%20MODE%20UNLOCKED`}
+                    className="underline block text-white hover:text-goldNeon mt-1"
+                  >
+                    {PORTFOLIO_CONFIG.vipEmail}
+                  </a>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    synth.playBlip();
+                    setGodModalOpen(false);
+                  }}
+                  className="w-full py-4 rounded bg-goldNeon text-void font-pixel text-xs sm:text-sm tracking-wider shadow-[0_4px_0_#b39700] active:translate-y-1"
+                >
+                  CONTINUE IN GOD MODE
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-      </section>
-    </div>
-  </main>
-  <footer>
-    <div class="wrap">© <span id="year">2026</span> Alexis Klifford Camilo · Thanks for stopping by.</div>
-  </footer>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<ArcadePortfolioApp />);
   </script>
 </body>
 </html>
